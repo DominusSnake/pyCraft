@@ -1,0 +1,757 @@
+{
+  "status": {
+    "SERVERBOUND": {
+      "RequestPacket": {
+        "id": 0, 
+        "packet_name": "request", 
+        "definition": []
+      }, 
+      "PingPacket": {
+        "id": 1, 
+        "packet_name": "ping", 
+        "definition": [
+          {
+            "time": "Long"
+          }
+        ]
+      }
+    }, 
+    "CLIENTBOUND": {
+      "ResponsePacket": {
+        "id": 0, 
+        "packet_name": "response", 
+        "definition": [
+          {
+            "json_response": "String"
+          }
+        ]
+      }, 
+      "PingPacketResponse": {
+        "id": 1, 
+        "packet_name": "ping", 
+        "definition": [
+          {
+            "time": "Long"
+          }
+        ]
+      }
+    }
+  }, 
+  "handshake": {
+    "SERVERBOUND": {
+      "HandShakePacket": {
+        "id": 0, 
+        "packet_name": "handshake", 
+        "definition": [
+          {
+            "protocol_version": "VarInt"
+          }, 
+          {
+            "server_address": "String"
+          }, 
+          {
+            "server_port": "UnsignedShort"
+          }, 
+          {
+            "next_state": "VarInt"
+          }
+        ]
+      }
+    }, 
+    "CLIENTBOUND": {}
+  }, 
+  "login": {
+    "SERVERBOUND": {
+      "LoginStartPacket": {
+        "id": 0, 
+        "packet_name": "login start", 
+        "definition": [
+          {
+            "name": "String"
+          }
+        ]
+      }, 
+      "EncryptionResponsePacket": {
+        "id": 1, 
+        "packet_name": "encryption response", 
+        "definition": [
+          {
+            "shared_secret": "VarIntPrefixedByteArray"
+          }, 
+          {
+            "verify_token": "VarIntPrefixedByteArray"
+          }
+        ]
+      }
+    }, 
+    "CLIENTBOUND": {
+      "DisconnectPacket": {
+        "id": 0, 
+        "packet_name": "disconnect", 
+        "definition": [
+          {
+            "json_data": "Chat"
+          }
+        ]
+      }, 
+      "EncryptionRequestPacket": {
+        "id": 1, 
+        "packet_name": "encryption request", 
+        "definition": [
+          {
+            "server_id": "String"
+          }, 
+          {
+            "public_key": "VarIntPrefixedByteArray"
+          }, 
+          {
+            "verify_token": "VarIntPrefixedByteArray"
+          }
+        ]
+      }, 
+      "LoginSuccessPacket": {
+        "id": 2, 
+        "packet_name": "login success", 
+        "definition": [
+          {
+            "UUID": "String"
+          }, 
+          {
+            "Username": "String"
+          }
+        ]
+      }, 
+      "SetCompressionPacket": {
+        "id": 3, 
+        "packet_name": "set compression", 
+        "definition": [
+          {
+            "threshold": "VarInt"
+          }
+        ]
+      }
+    }
+  }, 
+  "playing": {
+    "SERVERBOUND": {
+      "KeepAlivePacket": {
+        "id": 0, 
+        "packet_name": "keep alive", 
+        "definition": [
+          {
+            "keep_alive_id": "VarInt"
+          }
+        ]
+      }, 
+      "ChatPacket": {
+        "id": 1, 
+        "packet_name": "chat", 
+        "definition": [
+          {
+            "message": "String"
+          }
+        ]
+      }, 
+      "PositionAndLookPacket": {
+        "id": 6, 
+        "packet_name": "position and look", 
+        "definition": [
+          {
+            "x": "Double"
+          }, 
+          {
+            "feet_y": "Double"
+          }, 
+          {
+            "z": "Double"
+          }, 
+          {
+            "yaw": "Float"
+          }, 
+          {
+            "pitch": "Float"
+          }, 
+          {
+            "on_ground": "Boolean"
+          }
+        ]
+      }, 
+      "ClientStatus": {
+        "id": 22, 
+        "packet_name": "client status", 
+        "definition": [
+          {
+            "action_id": "VarInt"
+          }
+        ]
+      }
+    }, 
+    "CLIENTBOUND": {
+      "KeepAlivePacket": {
+        "id": 0, 
+        "packet_name": "keep alive", 
+        "definition": [
+          {
+            "keep_alive_id": "VarInt"
+          }
+        ]
+      }, 
+      "JoinGamePacket": {
+        "id": 1, 
+        "packet_name": "join game", 
+        "definition": [
+          {
+            "entity_id": "Integer"
+          }, 
+          {
+            "game_mode": "UnsignedByte"
+          }, 
+          {
+            "dimension": "Byte"
+          }, 
+          {
+            "difficulty": "UnsignedByte"
+          }, 
+          {
+            "max_players": "UnsignedByte"
+          }, 
+          {
+            "level_type": "String"
+          }, 
+          {
+            "reduced_debug_info": "Boolean"
+          }
+        ]
+      }, 
+      "ChatMessagePacket": {
+        "id": 2, 
+        "packet_name": "chat message", 
+        "definition": [
+          {
+            "json_data": "Chat"
+          }, 
+          {
+            "position": "Byte"
+          }
+        ]
+      }, 
+      "TimeUpdate": {
+        "id": 3, 
+        "packet_name": "tick", 
+        "definition": [
+          {
+            "world_age": "Long"
+          }, 
+          {
+            "day_time": "Long"
+          }
+        ]
+      }, 
+      "EntityEquipment": {
+        "id": 4, 
+        "packet_name": "set entity equipment", 
+        "definition": [
+          {
+            "entity_id": "VarInt"
+          }, 
+          {
+            "slot": "Short"
+          }, 
+          {
+            "item": "Slot"
+          }
+        ]
+      }, 
+      "SetSpawn": {
+        "id": 5, 
+        "packet_name": "set spawn", 
+        "definition": [
+          {
+            "pos": "Position"
+          }
+        ]
+      }, 
+      "UpdateHealth": {
+        "id": 6, 
+        "packet_name": "update health", 
+        "definition": [
+          {
+            "health": "Float"
+          }, 
+          {
+            "food": "VarInt"
+          }, 
+          {
+            "saturation": "Float"
+          }
+        ]
+      }, 
+      "Respawn": {
+        "id": 7, 
+        "packet_name": "respawn", 
+        "definition": [
+          {
+            "dimension": "Integer"
+          }, 
+          {
+            "difficulty": "UnsignedByte"
+          }, 
+          {
+            "gamemode": "UnsignedByte"
+          }, 
+          {
+            "level_type": "String"
+          }
+        ]
+      }, 
+      "PlayerPositionAndLookPacket": {
+        "id": 8, 
+        "packet_name": "player position and look", 
+        "definition": [
+          {
+            "x": "Double"
+          }, 
+          {
+            "y": "Double"
+          }, 
+          {
+            "z": "Double"
+          }, 
+          {
+            "yaw": "Float"
+          }, 
+          {
+            "pitch": "Float"
+          }, 
+          {
+            "flags": "Byte"
+          }
+        ]
+      }, 
+      "UpdateHeldItem": {
+        "id": 9,
+        "packet_name": "held item change",
+        "definition": [
+          {
+            "slot": "Byte"
+          }
+        ]
+      },
+      "UseBed": {
+        "id": 10,
+        "packet_name": "use bed",
+        "definition": [
+          {
+            "entity_id": "VarInt"
+          },
+          {
+            "location": "Position"
+          }
+        ]
+      },
+      "Animation": {
+        "id": 11,
+        "packet_name": "animation",
+        "definition": [
+          {
+            "entity_id": "VarInt"
+          },
+          {
+            "animation_id": "UnsignedByte"
+          }
+        ]
+      },
+      "SpawnPlayer": {
+        "id": 12,
+        "packet_name": "spawn player",
+        "definition": [
+          {
+            "entity_id": "VarInt"
+          },
+          {
+            "uuid": "UUID"
+          },
+          {
+            "x": "Integer"
+          },
+          {
+            "y": "Integer"
+          },
+          {
+            "z": "Integer"
+          },
+          {
+            "yaw": "Angle"
+          },
+          {
+            "pitch": "Angle"
+          },
+          {
+            "item": "Short"
+          },
+          {
+            "metadata": "EntityMetadata"
+          }
+        ]
+      },
+      "CollectObject": {
+        "id": 13,
+        "packet_name": "collect item",
+        "definition": [
+          {
+            "collected_id": "VarInt"
+          },
+          {
+            "collectior_id": "VarInt"
+          }
+        ]
+      },
+      "SpawnObject": {
+        "id": 14,
+        "packet_name": "spawn object",
+        "definition": [
+          {
+            "entity_id": "VarInt"
+          },
+          {
+            "type": "Byte"
+          },
+          {
+            "x": "Integer"
+          },
+          {
+            "y": "Integer"
+          },
+          {
+            "z": "Integer"
+          },
+          {
+            "pitch": "Angle"
+          },
+          {
+            "yaw": "Angle"
+          },
+          {
+            "data": "ObjectData"
+          }
+        ]
+      },
+      "SpawnMob": {
+        "id": 15,
+        "packet_name": "spawn mob",
+        "definition": [
+          {
+            "entity_id": "VarInt"
+          },
+          {
+            "type": "Byte"
+          },
+          {
+            "x": "Integer"
+          },
+          {
+            "y": "Integer"
+          },
+          {
+            "z": "Integer"
+          },
+          {
+            "pitch": "Angle"
+          },
+          {
+            "yaw": "Angle"
+          },
+          {
+            "head_pitch": "Angle"
+          },
+          {
+            "x_vel": "Short"
+          },
+          {
+            "y_vel": "Short"
+          },
+          {
+            "z_vel": "Short"
+          },
+          {
+            "data": "EntityMetaData"
+          }
+        ]
+      },
+      "UpdateEntity": {
+        "id": 26, 
+        "packet_name": "update entity", 
+        "definition": [
+          {
+            "entity_id": "Integer"
+          }, 
+          {
+            "entity_status": "Byte"
+          }
+        ]
+      }, 
+      "PluginMessage": {
+        "id": 63, 
+        "packet_name": "plugin message", 
+        "definition": [
+          {
+            "data": "VarIntPrefixedByteArray", 
+            "channel": "String"
+          }
+        ]
+      }, 
+      "DisconnectPacketPlayState": {
+        "id": 64, 
+        "packet_name": "disconnect", 
+        "definition": [
+          {
+            "json_data": "Chat"
+          }
+        ]
+      }, 
+      "ServerDifficulty": {
+        "id": 65, 
+        "packet_name": "server difficulty", 
+        "definition": [
+          {
+            "difficulty": "UnsignedByte"
+          }
+        ]
+      }, 
+      "CombatEvent": {
+        "id": 66, 
+        "packet_name": "combat event", 
+        "definition": [
+          {
+            "event": "VarInt"
+          },
+          {
+            "duration": [
+              "VarInt",
+              "event",
+              1
+            ]
+          },
+          {
+            "player_id": [
+              "VarInt",
+              "event",
+              2
+            ]
+          },
+          {
+            "entity_id": [
+              "VarInt",
+              "event",
+              1,
+              2
+            ]
+          },
+          {
+            "message": [
+              "VarInt",
+              "event",
+              2
+            ]
+          }
+        ]
+      },
+      "Camera": {
+        "id": 67, 
+        "packet_name": "camera", 
+        "definition": [
+          {
+            "camera_id": "VarInt"
+          }
+        ]
+      },
+      "WorldBorder": {
+        "id": 68, 
+        "packet_name": "world border", 
+        "definition": [
+          {
+            "action": "VarInt"
+          },
+          {
+            "radius": [
+              "Double",
+              "action",
+              0
+            ]
+          },
+          {
+            "old_radius": [
+              "Double",
+              "action",
+              1
+            ]
+          },
+          {
+            "new_radius": [
+              "Double",
+              "action",
+              1
+            ]
+          },
+          {
+            "speed": [
+              "VarLong",
+              "action",
+              1
+            ]
+          },
+          {
+            "x": [
+              "Double",
+              "action",
+              2,
+              3
+            ]
+          },
+          {
+            "z": [
+              "Double",
+              "action",
+              2,
+              3
+            ]
+          },
+          {
+            "old_radius": [
+              "Double",
+              "action",
+              3
+            ]
+          },
+          {
+            "new_radius": [
+              "Double",
+              "action",
+              3
+            ]
+          },
+          {
+            "speed": [
+              "VarLong",
+              "action",
+              3
+            ]
+          },
+          {
+            "teleport_bounds": [
+              "VarInt",
+              "action",
+              3
+            ]
+          },
+          {
+            "warning_time": [
+              "VarInt",
+              "action",
+              3,
+              4
+            ]
+          },
+          {
+            "warning_blocks": [
+              "VarInt",
+              "action",
+              3,
+              5
+            ]
+          }
+        ]
+      },
+      "Title": {
+        "id": 69, 
+        "packet_name": "title", 
+        "definition": [
+          {
+            "action": "VarInt"
+          },
+          {
+            "set_title": [
+              "Chat",
+              "action",
+              0
+            ]
+          },
+          {
+            "set_subtitle": [
+              "Chat",
+              "action",
+              1
+            ]
+          },
+          {
+            "fade_in": [
+              "Integer",
+              "action",
+              2
+            ]
+          },
+          {
+            "stay": [
+              "Integer",
+              "action",
+              2
+            ]
+          },
+          {
+            "fade_out": [
+              "Integer",
+              "action",
+              2
+            ]
+          }
+        ]
+
+      }, 
+      "SetCompressionPacketPlayState": {
+        "id": 70, 
+        "packet_name": "set compression", 
+        "definition": [
+          {
+            "threshold": "VarInt"
+          }
+        ]
+      },
+      "PlayerList": {
+        "id": 71,
+        "packet_name": "update player list",
+        "definition": [
+          {
+            "header": "Chat"
+          },
+          {
+            "footer": "Chat"
+          }
+        ]
+      },
+      "SendResourcePack": {
+        "id": 72,
+        "packet_name": "send resource pack",
+        "definition": [
+          {
+            "url": "String"
+          },
+          {
+            "hash": "String"
+          }
+        ]
+      },
+      "UpdateNBT": {
+        "id": 73,
+        "packet_name": "update entity nbt",
+        "definition": [
+          {
+            "entity_id": "VarInt"
+          },
+          {
+            "tag": "Nbt"
+          }
+        ]
+      }
+    }
+  }
+}
